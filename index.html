@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta Clara | Apoyo Emocional CU UAEM Nezahualcóyotl</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter y Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Librería QRious para generar Código QR real sin dependencias externas pesadas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        arena: { DEFAULT: '#F5EDDD', dark: '#E3D3B3' },
+                        salvia: {
+                            DEFAULT: '#9BDCAB',   
+                            hover:   '#82CF96',   
+                            light:   '#E8F7EC',   
+                            dark:    '#2F6B3F',   
+                        },
+                        sereno: {
+                            DEFAULT: '#1F5FA8',
+                            light: '#E3EEFA',
+                            dark: '#164A85',
+                        },
+                        texto: '#141414',
+                        stone: { 50: '#FBF6EC', 100: '#F3EAD7', 200: '#E6D8BB', 300: '#D6C29A', 400: '#BFA97C' },
+                        slate: { 400: '#8A8A8A', 500: '#666666', 600: '#3F3F3F', 700: '#2B2B2B', 800: '#1F1F1F', 900: '#0A0A0A' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-arena text-texto antialiased selection:bg-salvia-light selection:text-salvia-dark">
+
+    <!-- Notificación Toast Flotante (Reemplaza alert()) -->
+    <div id="toast" class="fixed bottom-5 right-5 left-5 sm:left-auto sm:w-96 bg-texto text-white px-4 py-3.5 rounded-2xl shadow-xl transform translate-y-28 opacity-0 transition-all duration-300 z-50 flex items-center gap-3 pointer-events-none">
+        <span id="toast-icon" class="text-xl">✅</span>
+        <p id="toast-text" class="text-sm font-medium leading-snug"></p>
+    </div>
+
+    <!-- =========================================================
+         1. ENCABEZADO STICKY MINIMALISTA
+    ========================================================== -->
+    <header class="sticky top-0 z-40 bg-arena/95 backdrop-blur-md border-b border-stone-200/80">
+        <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
+            <a href="#" class="flex items-center gap-2.5 group">
+                <div class="w-9 h-9 rounded-xl bg-salvia text-white flex items-center justify-center shadow-sm group-hover:bg-salvia-dark transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-display font-bold text-lg tracking-tight block leading-none text-texto">Apuntes En Equilibrio</span>
+                    <span class="text-[11px] font-semibold text-salvia tracking-wide">CU UAEM Nezahualcóyotl</span>
+                </div>
+            </a>
+
+            <div class="flex items-center gap-2">
+                <button onclick="abrirModalQR()" class="text-xs font-semibold bg-sereno-light hover:bg-sereno/20 text-sereno-dark px-3 py-2 rounded-xl transition flex items-center gap-1.5">
+                    <span> Código QR</span>
+                </button>
+                <a href="#directorio" onclick="registrarEvento('directorio')" class="text-xs sm:text-sm font-semibold bg-salvia hover:bg-salvia-dark text-white px-3.5 py-2 rounded-xl transition shadow-sm">
+                    Directorio
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 pb-16 space-y-12">
+
+        <!-- =========================================================
+             1B. HERO SECTION EMPÁTICO
+        ========================================================== -->
+        <section class="pt-8 sm:pt-12 text-center space-y-5">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sereno-light text-sereno-dark text-xs font-semibold">
+                <span> Orientación Preventiva • Comunicación para la Salud</span>
+            </div>
+
+            <h1 class="font-display font-extrabold text-3xl sm:text-5xl text-texto tracking-tight leading-tight">
+                Apuntes En Equilibrio: <span class="text-salvia">Tener un buen promedio</span>, no significa descuidar tu salud mental
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Sabemos que las entregas simultáneas y la presión por el promedio pueden saturarte. No tienes que resolverlo todo en silencio ni creer que el desgaste extremo es obligatorio: en tu Centro Universitario existen espacios gratuitos y confidenciales listos para acompañarte.
+            </p>
+
+            <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a href="#directorio" onclick="registrarEvento('directorio')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-salvia hover:bg-salvia-dark text-white font-semibold px-6 py-3.5 rounded-2xl shadow-md hover:shadow-lg transition text-base">
+                    <span>Ver Directorio Exprés</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+                <a href="#semaforo" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-stone-100 text-texto border border-stone-200 font-semibold px-6 py-3.5 rounded-2xl transition text-base">
+                    <span>Autoevaluación Rápida (30 seg)</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             2. DIRECTORIO EXPRÉS INSTITUCIONAL (EDITABLE)
+        ========================================================== -->
+        <section id="directorio" class="scroll-mt-20 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-stone-200/80 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-100 pb-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-salvia bg-salvia-light px-3 py-1 rounded-lg">Paso 1 • Ruta Institucional</span>
+                    <h2 class="font-display font-bold text-2xl sm:text-3xl text-texto mt-2">Directorio Exprés de Apoyo</h2>
+                </div>
+                <button id="btn-toggle-editar" onclick="toggleModoEdicion()" class="self-start sm:self-center inline-flex items-center gap-1.5 text-xs font-semibold bg-sereno-light hover:bg-sereno/20 text-sereno-dark px-3.5 py-2.5 rounded-xl transition border border-sereno/20">
+                    <span> Editar datos del plantel</span>
+                </button>
+            </div>
+
+            <p class="text-sm sm:text-base text-slate-600">
+                Sigue esta ruta sencilla de <strong>3 pasos</strong> para solicitar orientación psicológica o acompañamiento tutorial dentro del <strong>Centro Universitario UAEM Nezahualcóyotl</strong>:
+            </p>
+
+            <!-- Vista de Lectura del Directorio (3 Pasos Claros) -->
+            <div id="vista-directorio-lectura" class="space-y-4">
+                <!-- Paso 1: Dónde y Con Quién -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-salvia-light/60 border border-salvia/20 flex items-start gap-3.5">
+                    <div class="w-8 h-8 rounded-xl bg-salvia text-white font-bold text-sm flex items-center justify-center shrink-0 mt-0.5">1</div>
+                    <div class="space-y-1 text-sm">
+                        <h3 class="font-display font-bold text-base text-texto">¿Dónde y con quién acudir?</h3>
+                        <p class="text-slate-700"><strong>Área:</strong> <span id="disp-area">Departamento de Atención Psicológica</span></p>
+                        <p class="text-slate-700"><strong>Ubicación exacta:</strong> <span id="disp-ubicacion">Edificio A, Planta Alta (a un costado de camara de Gesell), CU UAEM Nezahualcóyotl</span></p>
+                    </div>
+                </div>
+
+                <!-- Paso 2: Horarios y Contacto -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-sereno-light/60 border border-sereno/20 flex items-start gap-3.5">
+                    <div class="w-8 h-8 rounded-xl bg-sereno text-white font-bold text-sm flex items-center justify-center shrink-0 mt-0.5">2</div>
+                    <div class="space-y-1 text-sm">
+                        <h3 class="font-display font-bold text-base text-texto">Horarios y vías de primer contacto</h3>
+                        <p class="text-slate-700"><strong>Horario de atención:</strong> <span id="disp-horario">Lunes a viernes de 09:00 a 18:00 hrs.</span></p>
+                        <p class="text-slate-700"><strong>Contacto directo:</strong> <span id="disp-contacto">faalva167@profesor.uaemex.mx | Fidencia Beatriz Alva Arizmendi</span></p>
+                    </div>
+                </div>
+
+                <!-- Paso 3: Requisitos -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-arena border border-stone-200 flex items-start gap-3.5">
+                    <div class="w-8 h-8 rounded-xl bg-texto text-white font-bold text-sm flex items-center justify-center shrink-0 mt-0.5">3</div>
+                    <div class="space-y-1 text-sm">
+                        <h3 class="font-display font-bold text-base text-texto">¿Qué necesitas llevar? (Sin trámites complejos)</h3>
+                        <p class="text-slate-700"><strong>Requisitos:</strong> <span id="disp-requisitos">Credencial vigente de estudiante UAEMéx (o tira de materias), número de cuenta y correo institucional activo. Servicio 100% gratuito y confidencial.</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario de Edición en Vivo (Oculto por defecto) -->
+            <div id="form-directorio-edicion" class="hidden bg-sereno-light/50 border border-sereno/30 rounded-2xl p-5 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-display font-bold text-base text-sereno-dark">Personalizar Datos Reales del Plantel</h3>
+                    <span class="text-xs text-slate-500">Se guarda automáticamente en este navegador</span>
+                </div>
+                <div class="grid grid-cols-1 gap-3 text-sm">
+                    <div>
+                        <label class="block font-semibold text-texto mb-1">Departamento o Servicio:</label>
+                        <input type="text" id="edit-area" class="w-full p-2.5 rounded-xl border border-stone-300 bg-white focus:outline-none focus:ring-2 focus:ring-sereno">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-texto mb-1">Cubículo / Ubicación exacta:</label>
+                        <input type="text" id="edit-ubicacion" class="w-full p-2.5 rounded-xl border border-stone-300 bg-white focus:outline-none focus:ring-2 focus:ring-sereno">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-semibold text-texto mb-1">Horarios de atención:</label>
+                            <input type="text" id="edit-horario" class="w-full p-2.5 rounded-xl border border-stone-300 bg-white focus:outline-none focus:ring-2 focus:ring-sereno">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-texto mb-1">Extensión, Correo o Enlace:</label>
+                            <input type="text" id="edit-contacto" class="w-full p-2.5 rounded-xl border border-stone-300 bg-white focus:outline-none focus:ring-2 focus:ring-sereno">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-texto mb-1">Requisitos de acceso:</label>
+                        <input type="text" id="edit-requisitos" class="w-full p-2.5 rounded-xl border border-stone-300 bg-white focus:outline-none focus:ring-2 focus:ring-sereno">
+                    </div>
+                </div>
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button onclick="restaurarDatosDefecto()" class="text-xs font-semibold text-slate-500 hover:text-texto px-3 py-2">
+                        Restaurar valores iniciales
+                    </button>
+                    <button onclick="guardarDatosPlantel()" class="bg-sereno hover:bg-sereno-dark text-white font-semibold text-sm px-5 py-2.5 rounded-xl shadow-sm transition">
+                         Guardar Cambios
+                    </button>
+                </div>
+            </div>
+
+            <!-- Botón de Acción: Copiar ruta de contacto -->
+            <div class="pt-1 flex flex-col sm:flex-row gap-3">
+                <button onclick="copiarRutaContacto()" class="w-full bg-salvia hover:bg-salvia-dark text-white font-semibold py-3.5 px-5 rounded-2xl shadow-sm transition flex items-center justify-center gap-2 text-sm sm:text-base">
+                    <span> Copiar ruta de contacto para guardar o compartir</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             3. SEMÁFORO DE SEÑALES COTIDIANAS (AUTOEVALUACIÓN 4 PREGUNTAS)
+        ========================================================== -->
+        <section id="semaforo" class="scroll-mt-20 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-stone-200/80 space-y-6">
+            <div class="space-y-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-sereno-dark bg-sereno-light px-3 py-1 rounded-lg">Paso 2 • Autoevaluación Rápida</span>
+                <h2 class="font-display font-bold text-2xl sm:text-3xl text-texto">Semáforo de Señales Cotidianas</h2>
+                <p class="text-sm sm:text-base text-slate-600">
+                    Responde estas <strong>4 preguntas breves</strong> sobre tus últimas dos semanas. Recuerda: <em>sacar buen promedio no requiere que vivas sufriendo ni agotado</em>.
+                </p>
+            </div>
+
+            <!-- 4 Preguntas Breves con Botones de Selección -->
+            <div class="space-y-4" id="contenedor-preguntas">
+                <!-- Pregunta 1 -->
+                <div class="p-4 rounded-2xl bg-arena border border-stone-200/80 space-y-2.5">
+                    <p class="font-semibold text-sm sm:text-base text-texto">1. Cuando duermes o descansas el fin de semana, ¿sientes que recuperas tu energía?</p>
+                    <div class="grid grid-cols-3 gap-2" data-pregunta="0">
+                        <button type="button" onclick="seleccionarOpcion(0, 0, this)" class="opcion-btn py-2 px-3 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm font-medium hover:bg-stone-50 transition">Sí, casi siempre</button>
+                        <button type="button" onclick="seleccionarOpcion(0, 1, this)" class="opcion-btn py-2 px-3 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm font-medium hover:bg-stone-50 transition">A veces</button>
+                        <button type="button" onclick="seleccionarOpcion(0, 2, this)" class="opcion-btn py-2 px-3 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm font-medium hover:bg-stone-50 transition">No, sigo agotado/a</button>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="p-4 rounded-2xl bg-arena border border-stone-200/80 space-y-2.5">
+                    <p class="font-semibold text-sm sm:text-base text-texto">2. Ante varias entregas simultáneas, ¿te bloqueas o sientes que no puedes avanzar?</p>
+                    <div class="grid grid-cols-3 gap-2" data-pregunta="1">
+                        <button type="button" onclick="seleccionarOpcion(1, 0, this)" class="opcion-btn py-2 px-3 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm font-medium hover:bg-stone-50 transition">Rara vez</button>
+                        <button type="button" onclick="seleccionarOpcion(1, 1, this)" class="opcion-btn py-2 px-3 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm font-medium hover:bg-stone-50 transition">En semana de exámenes</button>
+                        <button type="button" onclick="seleccionarOpcion(1, 2, this)" class="opcion-btn py-2 px-3 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm font-medium hover:bg-stone-50 transition">Muy seguido</button>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="p-4 rounded-2xl bg-arena border border-stone-200/80 space-y-2.5">
+                    <p class="font-semibold text-sm sm:text-base text-texto">3. Cuando te sientes abrumado/a por la escuela, ¿hablas de ello o prefieres guardártelo?</p>
+                    <div class="grid grid-cols-3 gap-2" data-pregunta="2">
+                        <button type="button" onclick="seleccionarOpcion(2, 0, this)" class="opcion-btn py-2 px-3 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm font-medium hover:bg-stone-50 transition">Lo platico</button>
+                        <button type="button" onclick="seleccionarOpcion(2, 1, this)" class="opcion-btn py-2 px-3 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm font-medium hover:bg-stone-50 transition">Solo si me preguntan</button>
+                        <button type="button" onclick="seleccionarOpcion(2, 2, this)" class="opcion-btn py-2 px-3 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm font-medium hover:bg-stone-50 transition">Me aíslo y callo</button>
+                    </div>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div class="p-4 rounded-2xl bg-arena border border-stone-200/80 space-y-2.5">
+                    <p class="font-semibold text-sm sm:text-base text-texto">4. ¿Has notado cambios en tu sueño, apetito o irritabilidad por pensar en tus calificaciones?</p>
+                    <div class="grid grid-cols-3 gap-2" data-pregunta="3">
+                        <button type="button" onclick="seleccionarOpcion(3, 0, this)" class="opcion-btn py-2 px-3 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm font-medium hover:bg-stone-50 transition">Ningún cambio</button>
+                        <button type="button" onclick="seleccionarOpcion(3, 1, this)" class="opcion-btn py-2 px-3 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm font-medium hover:bg-stone-50 transition">Cambios leves</button>
+                        <button type="button" onclick="seleccionarOpcion(3, 2, this)" class="opcion-btn py-2 px-3 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm font-medium hover:bg-stone-50 transition">Sí, bastante</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel de Retroalimentación Personalizada -->
+            <div id="panel-resultado-semaforo" class="hidden rounded-2xl p-5 border transition-all duration-300">
+                <div class="flex items-start gap-3.5">
+                    <span id="res-semaforo-icono" class="text-3xl">🟢</span>
+                    <div class="space-y-2 flex-1">
+                        <h3 id="res-semaforo-titulo" class="font-display font-bold text-lg"></h3>
+                        <p id="res-semaforo-texto" class="text-sm leading-relaxed"></p>
+                        <div class="pt-1">
+                            <a href="#directorio" onclick="registrarEvento('directorio')" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold underline">
+                                <span> Consultar ubicación y horarios en el Directorio Exprés</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             4. CAJA DE HERRAMIENTAS DE 3 MINUTOS
+        ========================================================== -->
+        <section id="herramientas" class="scroll-mt-20 space-y-6">
+            <div class="space-y-2 px-1">
+                <span class="text-xs font-bold uppercase tracking-wider text-salvia bg-salvia-light px-3 py-1 rounded-lg">Paso 3 • Recursos Prácticos</span>
+                <h2 class="font-display font-bold text-2xl sm:text-3xl text-texto">Caja de Herramientas de 3 Minutos</h2>
+                <p class="text-sm sm:text-base text-slate-600">
+                    Diseñadas para semanas de entregas simultáneas cuando no tienes tiempo para lecturas largas.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Herramienta A: Respiración Cuadrada (4-4-4-4) -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-stone-200/80 flex flex-col justify-between space-y-5">
+                    <div class="space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-sereno-dark bg-sereno-light px-2.5 py-1 rounded-lg">Herramienta A</span>
+                            <span class="text-xs text-slate-400 font-medium">⏱ 1 a 3 min</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-texto">Respiración Cuadrada (4-4-4-4)</h3>
+                        <p class="text-sm text-slate-600">
+                            Ideal antes de entrar a un examen o exposición. Sigue el ritmo del círculo durante 4 segundos por fase.
+                        </p>
+                    </div>
+
+                    <div class="py-5 flex flex-col items-center justify-center bg-arena rounded-2xl border border-stone-200/70">
+                        <div class="relative w-32 h-32 flex items-center justify-center">
+                            <div id="circulo-respiracion" class="w-20 h-20 rounded-full bg-sereno/20 border-2 border-sereno flex items-center justify-center transition-all duration-1000 ease-in-out">
+                                <span id="timer-respiracion" class="font-display font-extrabold text-2xl text-sereno-dark">4s</span>
+                            </div>
+                        </div>
+                        <p id="texto-respiracion" class="mt-2 font-semibold text-sm text-texto text-center px-2">Presiona iniciar para comenzar</p>
+                    </div>
+
+                    <button id="btn-respiracion" onclick="toggleRespiracion()" class="w-full bg-sereno hover:bg-sereno-dark text-white font-semibold py-3 px-4 rounded-2xl transition text-sm">
+                        ▶ Iniciar Respiración
+                    </button>
+                </div>
+
+                <!-- Herramienta B: Matriz Exprés de Prioridades -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-stone-200/80 flex flex-col justify-between space-y-5">
+                    <div class="space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-salvia-dark bg-salvia-light px-2.5 py-1 rounded-lg">Herramienta B</span>
+                            <span class="text-xs text-slate-400 font-medium"> Organización Exprés</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-texto">Matriz Exprés de Prioridades</h3>
+                        <p class="text-sm text-slate-600">
+                            Anota tus pendientes del día, clasifícalos y márcalos conforme los liberes para despejar tu mente.
+                        </p>
+                    </div>
+
+                    <!-- Formulario rápido para agregar tarea -->
+                    <form onsubmit="agregarTareaMatriz(event)" class="space-y-2">
+                        <input type="text" id="input-tarea-matriz" placeholder="Ej. Entregar resumen de Salud Pública..." required class="w-full text-sm p-2.5 rounded-xl border border-stone-300 bg-arena focus:bg-white focus:outline-none focus:ring-2 focus:ring-salvia">
+                        <div class="flex gap-2">
+                            <select id="select-tipo-matriz" class="flex-1 text-xs font-semibold p-2.5 rounded-xl border border-stone-300 bg-white text-texto focus:outline-none focus:ring-2 focus:ring-salvia">
+                                <option value="urgente"> Urgente e Importante (Hacer hoy)</option>
+                                <option value="posponible"> Delegable / Posponible (Después)</option>
+                            </select>
+                            <button type="submit" class="bg-salvia hover:bg-salvia-dark text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition shrink-0">
+                                + Añadir
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Listas de la Matriz -->
+                    <div class="space-y-3 text-xs max-h-48 overflow-y-auto pr-1">
+                        <div>
+                            <p class="font-bold text-rose-700 uppercase tracking-wider mb-1"> Hacer Hoy (Urgente e Importante)</p>
+                            <ul id="lista-urgente" class="space-y-1.5"></ul>
+                        </div>
+                        <div>
+                            <p class="font-bold text-salvia-dark uppercase tracking-wider mb-1"> Posponible / Secundario</p>
+                            <ul id="lista-posponible" class="space-y-1.5"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             5. SECCIÓN DE CÓDIGO QR Y COMPARTIR
+        ========================================================== -->
+        <section class="bg-salvia-light/70 border border-salvia/20 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="space-y-2 text-center sm:text-left">
+                <h2 class="font-display font-bold text-xl sm:text-2xl text-texto">Comparte «Ruta Clara» con tu grupo</h2>
+                <p class="text-sm text-slate-600 max-w-md">
+                    ¿Conoces a alguien saturado por entregas o exámenes? Muéstrale el código QR de esta guía o envíale el enlace directo por WhatsApp.
+                </p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto shrink-0">
+                <button onclick="abrirModalQR()" class="bg-salvia hover:bg-salvia-dark text-white font-semibold px-5 py-3 rounded-2xl shadow-sm transition text-sm flex items-center justify-center gap-2">
+                    <span>📲 Ver Código QR</span>
+                </button>
+                <button onclick="copiarEnlacePagina()" class="bg-white hover:bg-stone-50 text-texto border border-stone-200 font-semibold px-5 py-3 rounded-2xl transition text-sm flex items-center justify-center gap-2">
+                    <span>🔗 Copiar Enlace</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =========================================================
+         6. PIE DE PÁGINA INSTITUCIONAL Y BOTÓN DE MÉTRICAS
+    ========================================================== -->
+    <footer class="bg-texto text-stone-300 py-10 px-4">
+        <div class="max-w-3xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div class="space-y-1.5">
+                <p class="font-display font-bold text-white text-base">
+                    UAEMéx • Centro Universitario Nezahualcóyotl
+                </p>
+                <p class="text-xs text-stone-400">
+                    Licenciatura en Educación para la Salud • U.A. Comunicación para la Salud<br>
+                    Recurso educativo preventivo. No sustituye atención médica de urgencia.
+                </p>
+            </div>
+
+            <button onclick="abrirModalMetricas()" class="shrink-0 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-salvia-light border border-slate-600 px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+                <span> Métricas de Campaña (Equipo)</span>
+            </button>
+        </div>
+    </footer>
+
+    <!-- =========================================================
+         MODAL 1: CÓDIGO QR DE LA CAMPAÑA
+    ========================================================== -->
+    <div id="modal-qr" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-5 shadow-2xl border border-stone-200">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider text-salvia bg-salvia-light px-2.5 py-1 rounded-lg">Difusión Rápida</span>
+                <button onclick="cerrarModalQR()" class="text-slate-400 hover:text-texto font-bold text-xl leading-none">&times;</button>
+            </div>
+            <div class="space-y-1">
+                <h3 class="font-display font-bold text-xl text-texto">Escanea Ruta Clara</h3>
+                <p class="text-xs text-slate-500">Apunta con la cámara de tu celular para abrir el directorio de apoyo emocional al instante.</p>
+            </div>
+            <div class="p-4 bg-arena rounded-2xl border border-stone-200 inline-flex items-center justify-center mx-auto">
+                <canvas id="qr-canvas"></canvas>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="copiarEnlacePagina()" class="flex-1 bg-salvia hover:bg-salvia-dark text-white font-semibold py-2.5 px-4 rounded-xl text-xs transition">
+                    Copiar Enlace Directo
+                </button>
+                <button onclick="cerrarModalQR()" class="bg-stone-100 hover:bg-stone-200 text-texto font-semibold py-2.5 px-4 rounded-xl text-xs transition">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         MODAL 2: MÉTRICAS DE CAMPAÑA (EVALUACIÓN OE3)
+    ========================================================== -->
+    <div id="modal-metricas" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-5 shadow-2xl border border-stone-200">
+            <div class="flex items-center justify-between border-b border-stone-100 pb-3">
+                <div>
+                    <h3 class="font-display font-bold text-lg text-texto">Métricas de Campaña (Equipo)</h3>
+                    <p class="text-xs text-slate-500">Indicador Objetivo Específico 3 • Muestra: 26 estudiantes</p>
+                </div>
+                <button onclick="cerrarModalMetricas()" class="text-slate-400 hover:text-texto font-bold text-xl leading-none">&times;</button>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 text-center">
+                <div class="bg-arena p-3.5 rounded-2xl border border-stone-200">
+                    <span id="m-visitas" class="block font-display font-extrabold text-2xl text-salvia">0</span>
+                    <span class="text-[11px] font-medium text-slate-600">Visitas a la Página</span>
+                </div>
+                <div class="bg-arena p-3.5 rounded-2xl border border-stone-200">
+                    <span id="m-directorio" class="block font-display font-extrabold text-2xl text-sereno">0</span>
+                    <span class="text-[11px] font-medium text-slate-600">Clics Directorio</span>
+                </div>
+                <div class="bg-arena p-3.5 rounded-2xl border border-stone-200">
+                    <span id="m-semaforo" class="block font-display font-extrabold text-2xl text-amber-600">0</span>
+                    <span class="text-[11px] font-medium text-slate-600">Autoevaluaciones</span>
+                </div>
+            </div>
+
+            <!-- Barra de Progreso hacia la Meta OE3 (20 interacciones) -->
+            <div class="bg-salvia-light/60 p-4 rounded-2xl border border-salvia/20 space-y-2">
+                <div class="flex justify-between items-center text-xs">
+                    <span class="font-bold text-texto">Progreso Meta OE3 (20 interacciones directas)</span>
+                    <span id="m-progreso-texto" class="font-extrabold text-salvia-dark">0 / 20 (0%)</span>
+                </div>
+                <div class="w-full h-3 bg-white rounded-full overflow-hidden border border-salvia/20">
+                    <div id="m-barra" class="h-full bg-salvia transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <p class="text-[11px] text-slate-600">
+                    Suma de consultas al directorio, autoevaluaciones completadas y descargas/usos de herramientas.
+                </p>
+            </div>
+
+            <div class="flex items-center justify-between pt-1">
+                <button onclick="reiniciarMetricas()" class="text-xs font-semibold text-rose-600 hover:underline">
+                    Reiniciar contadores
+                </button>
+                <button onclick="cerrarModalMetricas()" class="bg-texto hover:bg-slate-800 text-white font-semibold text-xs px-5 py-2.5 rounded-xl transition">
+                    Listo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         JAVASCRIPT: INTERACTIVIDAD Y PERSISTENCIA EN LOCALSTORAGE
+    ========================================================== -->
+    <script>
+        // --- UTILIDAD TOAST ---
+        let toastTimer;
+        function mostrarToast(mensaje, icono = '✅') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-text').textContent = mensaje;
+            document.getElementById('toast-icon').textContent = icono;
+            toast.classList.remove('translate-y-28', 'opacity-0');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('translate-y-28', 'opacity-0');
+            }, 3400);
+        }
+
+        function copiarTextoPortapapeles(texto, msgExito) {
+            const area = document.createElement('textarea');
+            area.value = texto;
+            document.body.appendChild(area);
+            area.select();
+            document.execCommand('copy');
+            document.body.removeChild(area);
+            mostrarToast(msgExito, '📋');
+        }
+
+        // --- 1. MÉTRICAS DE CAMPAÑA (localStorage) ---
+        const KEY_METRICAS = 'ruta_clara_oe3_stats';
+
+        function obtenerStats() {
+            const base = { visitas: 0, directorio: 0, semaforo: 0, herramientas: 0 };
+            try {
+                const raw = localStorage.getItem(KEY_METRICAS);
+                return raw ? { ...base, ...JSON.parse(raw) } : base;
+            } catch (e) {
+                return base;
+            }
+        }
+
+        function registrarEvento(tipo) {
+            const stats = obtenerStats();
+            if (stats[tipo] !== undefined) {
+                stats[tipo] += 1;
+                localStorage.setItem(KEY_METRICAS, JSON.stringify(stats));
+            }
+        }
+
+        function abrirModalMetricas() {
+            const stats = obtenerStats();
+            document.getElementById('m-visitas').textContent = stats.visitas;
+            document.getElementById('m-directorio').textContent = stats.directorio;
+            document.getElementById('m-semaforo').textContent = stats.semaforo;
+
+            const totalInteracciones = stats.directorio + stats.semaforo + stats.herramientas;
+            const porcentaje = Math.min(100, Math.round((totalInteracciones / 20) * 100));
+            document.getElementById('m-progreso-texto').textContent = `${totalInteracciones} / 20 (${porcentaje}%)`;
+            document.getElementById('m-barra').style.width = `${porcentaje}%`;
+
+            document.getElementById('modal-metricas').classList.remove('hidden');
+        }
+
+        function cerrarModalMetricas() {
+            document.getElementById('modal-metricas').classList.add('hidden');
+        }
+
+        function reiniciarMetricas() {
+            localStorage.setItem(KEY_METRICAS, JSON.stringify({ visitas: 1, directorio: 0, semaforo: 0, herramientas: 0 }));
+            abrirModalMetricas();
+            mostrarToast('Contadores reiniciados a cero.', '🔄');
+        }
+
+        // --- 2. DIRECTORIO EXPRÉS EDITABLE ---
+        const KEY_PLANTEL = 'ruta_clara_datos_plantel';
+        const DATOS_DEFECTO = {
+            area: 'Departamento De Atencion Psicologica',
+            ubicacion: 'Edificio A, Planta Alta (a un costado de camara de Gesell), CU UAEM NEZAHUALCOYOTL',
+            horario: 'Lunes a viernes de 09:00 a 18:00 hrs.',
+            contacto: 'falvaa167@profesor.uaemmex.mx | Fidencia Beatriz Alva Arizmendi',
+            requisitos: 'Credencial vigente de estudiante UAEMéx (o tira de materias), número de cuenta y correo institucional activo. Servicio 100% gratuito y confidencial.'
+        };
+
+        function cargarDatosPlantel() {
+            let datos = DATOS_DEFECTO;
+            try {
+                const guardado = localStorage.getItem(KEY_PLANTEL);
+                if (guardado) datos = { ...DATOS_DEFECTO, ...JSON.parse(guardado) };
+            } catch (e) {}
+
+            document.getElementById('disp-area').textContent = datos.area;
+            document.getElementById('disp-ubicacion').textContent = datos.ubicacion;
+            document.getElementById('disp-horario').textContent = datos.horario;
+            document.getElementById('disp-contacto').textContent = datos.contacto;
+            document.getElementById('disp-requisitos').textContent = datos.requisitos;
+
+            document.getElementById('edit-area').value = datos.area;
+            document.getElementById('edit-ubicacion').value = datos.ubicacion;
+            document.getElementById('edit-horario').value = datos.horario;
+            document.getElementById('edit-contacto').value = datos.contacto;
+            document.getElementById('edit-requisitos').value = datos.requisitos;
+        }
+
+        function toggleModoEdicion() {
+            const vista = document.getElementById('vista-directorio-lectura');
+            const form = document.getElementById('form-directorio-edicion');
+            const btn = document.getElementById('btn-toggle-editar');
+            const estaOculto = form.classList.contains('hidden');
+
+            if (estaOculto) {
+                vista.classList.add('hidden');
+                form.classList.remove('hidden');
+                btn.innerHTML = '<span>✖ Cancelar edición</span>';
+            } else {
+                form.classList.add('hidden');
+                vista.classList.remove('hidden');
+                btn.innerHTML = '<span>✏️ Editar datos del plantel</span>';
+            }
+        }
+
+        function guardarDatosPlantel() {
+            const nuevosDatos = {
+                area: document.getElementById('edit-area').value.trim() || DATOS_DEFECTO.area,
+                ubicacion: document.getElementById('edit-ubicacion').value.trim() || DATOS_DEFECTO.ubicacion,
+                horario: document.getElementById('edit-horario').value.trim() || DATOS_DEFECTO.horario,
+                contacto: document.getElementById('edit-contacto').value.trim() || DATOS_DEFECTO.contacto,
+                requisitos: document.getElementById('edit-requisitos').value.trim() || DATOS_DEFECTO.requisitos
+            };
+            localStorage.setItem(KEY_PLANTEL, JSON.stringify(nuevosDatos));
+            cargarDatosPlantel();
+            toggleModoEdicion();
+            mostrarToast('Datos del plantel guardados en este dispositivo.', '💾');
+        }
+
+        function restaurarDatosDefecto() {
+            localStorage.removeItem(KEY_PLANTEL);
+            cargarDatosPlantel();
+            mostrarToast('Datos restaurados a los valores predeterminados.', '↩️');
+        }
+
+        function copiarRutaContacto() {
+            registrarEvento('directorio');
+            const area = document.getElementById('disp-area').textContent;
+            const ubicacion = document.getElementById('disp-ubicacion').textContent;
+            const horario = document.getElementById('disp-horario').textContent;
+            const contacto = document.getElementById('disp-contacto').textContent;
+            const requisitos = document.getElementById('disp-requisitos').textContent;
+
+            const resumen = `🧭 RUTA CLARA - APOYO EMOCIONAL CU UAEM NEZAHUALCÓYOTL\n• Servicio: ${area}\n• Ubicación: ${ubicacion}\n• Horario: ${horario}\n• Contacto: ${contacto}\n• Requisitos: ${requisitos}`;
+            copiarTextoPortapapeles(resumen, 'Ruta de contacto copiada. ¡Lista para pegar en tus notas o WhatsApp!');
+        }
+
+        // --- 3. SEMÁFORO DE SEÑALES COTIDIANAS (4 PREGUNTAS) ---
+        const respuestasSemaforo = [null, null, null, null];
+        let autoevaluacionRegistrada = false;
+
+        function seleccionarOpcion(preguntaIdx, valor, boton) {
+            respuestasSemaforo[preguntaIdx] = valor;
+
+            // Actualizar estilos visuales de los botones de esa pregunta
+            const grupo = boton.parentElement;
+            grupo.querySelectorAll('.opcion-btn').forEach(btn => {
+                btn.classList.remove('bg-salvia', 'text-white', 'border-salvia', 'font-bold');
+                btn.classList.add('bg-white', 'text-texto', 'border-stone-300');
+            });
+            boton.classList.remove('bg-white', 'text-texto', 'border-stone-300');
+            boton.classList.add('bg-salvia', 'text-white', 'border-salvia', 'font-bold');
+
+            // Verificar si las 4 preguntas fueron respondidas
+            if (!respuestasSemaforo.includes(null)) {
+                if (!autoevaluacionRegistrada) {
+                    registrarEvento('semaforo');
+                    autoevaluacionRegistrada = true;
+                }
+                mostrarResultadoSemaforo();
+            }
+        }
+
+        function mostrarResultadoSemaforo() {
+            const puntaje = respuestasSemaforo.reduce((acc, val) => acc + val, 0);
+            const panel = document.getElementById('panel-resultado-semaforo');
+            const icono = document.getElementById('res-semaforo-icono');
+            const titulo = document.getElementById('res-semaforo-titulo');
+            const texto = document.getElementById('res-semaforo-texto');
+
+            panel.className = 'rounded-2xl p-5 border transition-all duration-300';
+
+            if (puntaje <= 2) {
+                panel.classList.add('bg-salvia-light', 'border-salvia/30', 'text-salvia-dark');
+                icono.textContent = '🟢';
+                titulo.textContent = 'Nivel Verde: Cansancio Cotidiano Manejable';
+                texto.textContent = 'Tu cuerpo y mente muestran un equilibrio saludable frente a la carga académica actual. Aprovecha las herramientas de 3 minutos para mantener tus pausas activas y recuerda que acudir a orientación preventiva siempre es válido.';
+            } else if (puntaje <= 5) {
+                panel.classList.add('bg-amber-50', 'border-amber-300', 'text-amber-900');
+                icono.textContent = '🟡';
+                titulo.textContent = 'Nivel Amarillo: Señales de Sobrecarga Acumulada';
+                texto.textContent = 'Estás cargando con bastante presión. Recuerda que sacar buen promedio no significa que debas sufrir o callarte lo que sientes. Te recomendamos usar la Matriz Exprés de Prioridades y acercarte a tutoría u orientación educativa para prevenir un colapso.';
+            } else {
+                panel.classList.add('bg-rose-50', 'border-rose-300', 'text-rose-900');
+                icono.textContent = '🔴';
+                titulo.textContent = 'Nivel Rojo: Momento Oportuno para Pedir Apoyo Profesional';
+                texto.textContent = 'Tus respuestas reflejan un desgaste importante que va más allá del cansancio normal. No tienes que resolverlo solo/a: tu Centro Universitario tiene especialistas gratuitos y confidenciales listos para escucharte hoy mismo.';
+            }
+        }
+
+        // --- 4. HERRAMIENTA A: RESPIRACIÓN CUADRADA (4-4-4-4) ---
+        let intervaloResp = null;
+        let respirando = false;
+
+        function toggleRespiracion() {
+            const btn = document.getElementById('btn-respiracion');
+            const circulo = document.getElementById('circulo-respiracion');
+            const timer = document.getElementById('timer-respiracion');
+            const texto = document.getElementById('texto-respiracion');
+
+            if (respirando) {
+                clearInterval(intervaloResp);
+                respirando = false;
+                btn.textContent = '▶ Iniciar Respiración';
+                btn.classList.replace('bg-texto', 'bg-sereno');
+                circulo.style.transform = 'scale(1)';
+                timer.textContent = '4s';
+                texto.textContent = 'Ejercicio pausado. Puedes retomarlo cuando gustes.';
+                return;
+            }
+
+            registrarEvento('herramientas');
+            respirando = true;
+            btn.textContent = '⏸ Pausar Ejercicio';
+            btn.classList.replace('bg-sereno', 'bg-texto');
+
+            const fases = [
+                { msg: '1. Inhala suavemente por la nariz...', scale: 'scale(1.42)' },
+                { msg: '2. Sostén el aire sin tensar...', scale: 'scale(1.42)' },
+                { msg: '3. Exhala despacio por la boca...', scale: 'scale(1)' },
+                { msg: '4. Pausa tranquila antes de inhalar...', scale: 'scale(1)' }
+            ];
+
+            let idx = 0;
+            let seg = 4;
+
+            function tick() {
+                texto.textContent = fases[idx].msg;
+                circulo.style.transform = fases[idx].scale;
+                timer.textContent = `${seg}s`;
+                seg--;
+                if (seg < 1) {
+                    seg = 4;
+                    idx = (idx + 1) % fases.length;
+                }
+            }
+
+            tick();
+            intervaloResp = setInterval(tick, 1000);
+        }
+
+        // --- 5. HERRAMIENTA B: MATRIZ EXPRÉS DE PRIORIDADES ---
+        const KEY_TAREAS = 'ruta_clara_matriz_tareas';
+        let tareasMatriz = [
+            { id: 1, texto: 'Revisar fechas límite de entregas de esta semana', tipo: 'urgente', hecha: false },
+            { id: 2, texto: 'Ordenar apuntes de materias sin examen próximo', tipo: 'posponible', hecha: false }
+        ];
+
+        function cargarTareasMatriz() {
+            try {
+                const guardadas = localStorage.getItem(KEY_TAREAS);
+                if (guardadas) tareasMatriz = JSON.parse(guardadas);
+            } catch (e) {}
+            renderizarMatriz();
+        }
+
+        function guardarTareasMatriz() {
+            localStorage.setItem(KEY_TAREAS, JSON.stringify(tareasMatriz));
+            renderizarMatriz();
+        }
+
+        function agregarTareaMatriz(e) {
+            e.preventDefault();
+            const input = document.getElementById('input-tarea-matriz');
+            const select = document.getElementById('select-tipo-matriz');
+            const texto = input.value.trim();
+            if (!texto) return;
+
+            registrarEvento('herramientas');
+            tareasMatriz.unshift({
+                id: Date.now(),
+                texto,
+                tipo: select.value,
+                hecha: false
+            });
+            input.value = '';
+            guardarTareasMatriz();
+        }
+
+        function toggleTareaHecha(id) {
+            tareasMatriz = tareasMatriz.map(t => t.id === id ? { ...t, hecha: !t.hecha } : t);
+            guardarTareasMatriz();
+        }
+
+        function eliminarTareaMatriz(id) {
+            tareasMatriz = tareasMatriz.filter(t => t.id !== id);
+            guardarTareasMatriz();
+        }
+
+        function renderizarMatriz() {
+            const ulUrgente = document.getElementById('lista-urgente');
+            const ulPosponible = document.getElementById('lista-posponible');
+            ulUrgente.innerHTML = '';
+            ulPosponible.innerHTML = '';
+
+            tareasMatriz.forEach(t => {
+                const li = document.createElement('li');
+                li.className = 'flex items-center justify-between gap-2 p-2 rounded-xl bg-arena border border-stone-200/80';
+                li.innerHTML = `
+                    <label class="flex items-center gap-2 cursor-pointer flex-1">
+                        <input type="checkbox" ${t.hecha ? 'checked' : ''} onchange="toggleTareaHecha(${t.id})" class="rounded text-salvia focus:ring-salvia">
+                        <span class="${t.hecha ? 'line-through text-slate-400' : 'text-texto font-medium'}">${t.texto}</span>
+                    </label>
+                    <button type="button" onclick="eliminarTareaMatriz(${t.id})" class="text-slate-400 hover:text-rose-600 px-1 font-bold" title="Quitar">&times;</button>
+                `;
+                if (t.tipo === 'urgente') ulUrgente.appendChild(li);
+                else ulPosponible.appendChild(li);
+            });
+
+            if (!ulUrgente.children.length) ulUrgente.innerHTML = '<li class="text-slate-400 italic py-1">Sin tareas urgentes pendientes.</li>';
+            if (!ulPosponible.children.length) ulPosponible.innerHTML = '<li class="text-slate-400 italic py-1">Sin tareas posponibles.</li>';
+        }
+
+        // --- 6. CÓDIGO QR Y COMPARTIR ---
+        function abrirModalQR() {
+            const modal = document.getElementById('modal-qr');
+            modal.classList.remove('hidden');
+            const urlActual = window.location.href.startsWith('http') ? window.location.href : 'https://rutaclara-uaem-neza.edu.mx';
+            new QRious({
+                element: document.getElementById('qr-canvas'),
+                value: urlActual,
+                size: 190,
+                foreground: '#2D3748',
+                background: '#FAF8F5'
+            });
+        }
+
+        function cerrarModalQR() {
+            document.getElementById('modal-qr').classList.add('hidden');
+        }
+
+        function copiarEnlacePagina() {
+            const urlActual = window.location.href.startsWith('http') ? window.location.href : 'https://rutaclara-uaem-neza.edu.mx';
+            copiarTextoPortapapeles(urlActual, 'Enlace copiado al portapapeles para compartir.');
+        }
+
+        // --- INICIALIZACIÓN ---
+        window.addEventListener('DOMContentLoaded', () => {
+            registrarEvento('visita');
+            cargarDatosPlantel();
+            cargarTareasMatriz();
+        });
+    </script>
+</body>
+</html>
