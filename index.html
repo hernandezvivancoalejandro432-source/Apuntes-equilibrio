@@ -815,7 +815,7 @@
         function abrirModalQR() {
             const modal = document.getElementById('modal-qr');
             modal.classList.remove('hidden');
-            const urlActual = window.location.href.startsWith('http') ? window.location.href : 'https://rutaclara-uaem-neza.edu.mx';
+            const urlActual = window.location.href.startsWith('http') ? window.location.href : 'https://hernandezvivancoalejandro432-source.github.io/Apuntes-equilibrio/';
             new QRious({
                 element: document.getElementById('qr-canvas'),
                 value: urlActual,
@@ -830,7 +830,7 @@
         }
 
         function copiarEnlacePagina() {
-            const urlActual = window.location.href.startsWith('http') ? window.location.href : 'https://rutaclara-uaem-neza.edu.mx';
+            const urlActual = window.location.href.startsWith('http') ? window.location.href : 'https://hernandezvivancoalejandro432-source.github.io/Apuntes-equilibrio/';
             copiarTextoPortapapeles(urlActual, 'Enlace copiado al portapapeles para compartir.');
         }
 
